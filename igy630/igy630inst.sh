@@ -174,19 +174,13 @@ runivp() {
 }
 
 props=$(callerdir "$0")"/igy630config.properties"
-
-if [ -f ${props} ]; then
-	value=`zoscloudprops ${props}`
-	OLDIFS=$IFS; IFS="
+value=`zoscloudprops ${props}`
+OLDIFS=$IFS; IFS="
 "
-	for v in $value; do
-		eval "$v";
-	done	
-	IFS=$OLDIFS
-else
-	echo "Unable to find properties file. Make sure you cd to this directory before running the script."
-	exit 16
-fi
+for v in $value; do
+	eval "$v";
+done	
+IFS=$OLDIFS
 
 ds="
     	${IGYHLQ}.SIGYCOMP -s150M -ru
