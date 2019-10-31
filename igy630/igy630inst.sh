@@ -1,6 +1,15 @@
 #!/bin/sh
 #set -x
 
+out=$(whence zoscloudfuncs >/dev/null)
+if [ $? -eq 0 ]; then
+	. zoscloudfuncs
+else
+	echo "zoscloud tools need to be in your PATH"
+	exit 4
+fi
+
+
 crtds() {
 	list=$1
 	echo "$1" | awk '{ ds=$1; $1=""; attrs=$0; if ($ds != "") { rc=system("dtouch " attrs " " ds); if (rc > 0) { exit(rc); } } }'
@@ -164,10 +173,10 @@ runivp() {
 	exit 0
 }
 
-props="./igy630config.properties"
+props=$(callerdir "$0")"/igy630config.properties"
 
 if [ -f ${props} ]; then
-	value=`cat ${props}`
+	value=`zoscloudprops ${props}`
 	OLDIFS=$IFS; IFS="
 "
 	for v in $value; do
