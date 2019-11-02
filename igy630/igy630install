@@ -9,7 +9,6 @@ else
 	exit 4
 fi
 
-
 crtds() {
 	list=$1
 	echo "$1" | awk '{ ds=$1; $1=""; attrs=$0; if ($ds != "") { rc=system("dtouch " attrs " " ds); if (rc > 0) { exit(rc); } } }'
@@ -57,7 +56,7 @@ zzz
 
 crtddef() {
 targetsmpcntl=\
-" SET   BDY(${IGYSMPTGT}).
+" SET   BDY(${IGYHLQ}T).
  UCLIN.
   ADD DDDEF(SIGYMAC)
       DA(${IGYHLQ}.SIGYMAC)
@@ -99,7 +98,7 @@ targetsmpcntl=\
  ENDUCL."
 
 distsmpcntl=\
-" SET   BDY(${IGYSMPDIST}).
+" SET   BDY(${IGYHLQ}D).
  UCLIN.
   ADD DDDEF(AIGYHFS)
       DA(${IGYHLQ}.AIGYHFS)
@@ -118,7 +117,7 @@ distsmpcntl=\
       SHR.
  ENDUCL."
 
-	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYGLOBALCSI}  --smppts=TST.SMPPTS --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*'  --smpcntl=stdin <<zzz
+	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYHLQ}G.GLOBAL.CSI --smppts=${IGYHLQ}G.SMPPTS --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*'  --smpcntl=stdin <<zzz
 ${targetsmpcntl}
 zzz
 	rc=$?
@@ -126,14 +125,14 @@ zzz
 		exit $rc
 	fi
 
-	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYGLOBALCSI} --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*' --smpcntl=stdin <<zzz
+	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYHLQ}G.GLOBAL.CSI --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*' --smpcntl=stdin <<zzz
 ${distsmpcntl}
 zzz
 	rc=$?
 	exit $rc
 }
 
-props=$(callerdir "$0")"/igy630config.properties"
+props=$(callerdir "$0")"/igy630install.properties"
 . zoscloudprops ${props}
 
 ds="
