@@ -1,11 +1,11 @@
 #!/bin/sh
 #set -x
 
-out=$(whence zoscloudfuncs >/dev/null)
+out=$(whence zbrewfuncs >/dev/null)
 if [ $? -eq 0 ]; then
-	. zoscloudfuncs
+	. zbrewfuncs
 else
-	echo "zoscloud tools need to be in your PATH"
+	echo "zbrew tools need to be in your PATH"
 	exit 4
 fi
 
@@ -133,7 +133,7 @@ zzz
 }
 
 props=$(callerdir "$0")"/igy630install.properties"
-. zoscloudprops ${props}
+. zbrewprops ${props}
 
 ds="
     	${IGYHLQ}.SIGYCOMP -s150M -ru
