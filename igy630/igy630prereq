@@ -1,0 +1,44 @@
+#!/bin/sh
+#set -x
+
+out=$(whence zbrewfuncs >/dev/null)
+if [ $? -eq 0 ]; then
+	. zbrewfuncs
+else
+	echo "zbrew tools need to be in your PATH"
+	exit 4
+fi
+
+props=$(callerdir "$0")"/../../zbrew/global.properties"
+. zbrewprops ${props}
+
+zosinfo=`uname -rsvI`
+version=`echo ${zosinfo} | awk '{ print $3; }'`
+if [ "${version}" != "02" ]; then
+	echo "z/OS Version not supported. Must be 02"
+	exit 16
+fi
+release=`echo ${zosinfo} | awk '{ print $2; }'`
+
+case ${release} in
+	'02.00' ) ptfs='PH10606 PH10740 PH15585';;
+	'03.00' ) ptfs='PH07107 PH09543 PH15589';;
+	'04.00' ) ptfs='';;
+	* ) echo "z/OS 2.${release} not supported for IGY630";;
+esac
+
+if [ "${ptfs}" = '' ]; then
+	exit 0
+fi
+
+if [ "${CEE_CSI}" = "NONE" ]; then
+	echo "No LE SMP/E CSI is available. Pre-requisites are assumed ok"
+	exit 0
+fi
+
+out=`smpchkptf ${CEE_CSI} ${ptfs}`
+rc=$?
+if [ $rc -gt 0 ]; then
+	echo ${out}
+fi
+exit $rc

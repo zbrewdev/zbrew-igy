@@ -21,7 +21,7 @@ runivp() {
 //RUNIVP EXEC IGYWCLG,REGION=0M,
 //  LNGPRFX=${IGYHLQ},
 //  LIBPRFX=${CEEHLQ},
-//  PARM.LKED='LIST.XREF,LET,MAP',
+//  PARM.LKED='LIST,XREF,LET,MAP',
 //  PARM.COBOL='RENT',
 //  PARM.GO=''
 //COBOL.SYSIN DD DISP=SHR,
@@ -41,7 +41,7 @@ runivp() {
 	done
 	rc=`jls ${job} | awk '{ print $5; }'`
 	if [ ${rc} != '0' ]; then
-		echo "IVP failed with RC:${rc}"
+		echo "IVP failed with RC:${rc}. Temporary JCL is in ${tempds}. Job output is in ${job}"
 		exit 16
 	fi
 
@@ -49,6 +49,8 @@ runivp() {
 	exit 0
 }
 
+props=$(callerdir "$0")"/igy630install.properties"
+. zbrewprops ${props}
 props=$(callerdir "$0")"/igy630config.properties"
 . zbrewprops ${props}
 
