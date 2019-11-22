@@ -10,22 +10,22 @@ else
 fi
 
 runivp() {
-	tempprefix="${IGYHLQ}T"
+	tempprefix="${ZBREW_HLQ}IGY630T"
 	tempds=`mvstmp ${tempprefix}`
 	dtouch -tseq $tempds
 
 	jobcard="//IGYWIVP1   JOB ${JOBOPTS},${JOBPARMS}"
 	decho "$jobcard" ${tempds}
 	decho -a "//*
-//PROCLIB JCLLIB ORDER=${IGYHLQ}.SIGYPROC
+//PROCLIB JCLLIB ORDER=${ZBREW_HLQ}IGY630.SIGYPROC
 //RUNIVP EXEC IGYWCLG,REGION=0M,
-//  LNGPRFX=${IGYHLQ},
+//  LNGPRFX=${ZBREW_HLQ}IGY630,
 //  LIBPRFX=${CEEHLQ},
 //  PARM.LKED='LIST,XREF,LET,MAP',
 //  PARM.COBOL='RENT',
 //  PARM.GO=''
 //COBOL.SYSIN DD DISP=SHR,
-//  DSN=${IGYHLQ}.SIGYSAMP(IGYIVP)
+//  DSN=${ZBREW_HLQ}IGY630.SIGYSAMP(IGYIVP)
 //GO.SYSOUT DD SYSOUT=*
 " ${tempds}
 
@@ -49,9 +49,16 @@ runivp() {
 	exit 0
 }
 
-props=$(callerdir "$0")"/igy630install.properties"
+mydir=$(callerdir ${0})
+props="${mydir}/../../zbrew/properties/zbrew.properties"
+. zbrewprops "${props}"
+if [ $? -gt 0 ]; then
+        echo "Internal Error. Unable to find ${props}" >&2
+        exit 4
+fi
+props="${mydir}/igy630install.properties"
 . zbrewprops ${props}
-props=$(callerdir "$0")"/igy630config.properties"
+props="${mydir}/igy630config.properties"
 . zbrewprops ${props}
 
 out=`runivp`

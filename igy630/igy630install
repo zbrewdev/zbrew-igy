@@ -25,19 +25,19 @@ crtzfs() {
 	fi
 
 	mvscmdauth --pgm=IDCAMS --sysprint='*' --sysin=stdin <<zzz
-   DEFINE CLUSTER(NAME(${IGYHLQ}.ZFS) -
+   DEFINE CLUSTER(NAME(${ZBREW_HLQ}IGY630.ZFS) -
    LINEAR CYLINDERS(2 1) SHAREOPTIONS(3)
 zzz
 	rc=$?
 	if [ $rc -gt 0 ]; then
 		exit $rc
 	fi
-	mvscmdauth --pgm=IOEAGFMT --args="-aggregate ${IGYHLQ}.ZFS -compat" --sysprint='*'
+	mvscmdauth --pgm=IOEAGFMT --args="-aggregate ${ZBREW_HLQ}IGY630.ZFS -compat" --sysprint='*'
 	rc=$?
 	if [ $rc -gt 0 ]; then
 		exit $rc
 	fi
-	/usr/sbin/mount -t zfs -f ${IGYHLQ}.ZFS ${root}${middle}
+	/usr/sbin/mount -t zfs -f ${ZBREW_HLQ}IGY630.ZFS ${root}${middle}
 	rc=$?
 	if [ $rc -gt 0 ]; then
 		exit $rc
@@ -56,40 +56,40 @@ zzz
 
 crtddef() {
 targetsmpcntl=\
-" SET   BDY(${IGYHLQ}T).
+" SET   BDY(${ZBREW_HLQ}IGY630T).
  UCLIN.
   ADD DDDEF(SIGYMAC)
-      DA(${IGYHLQ}.SIGYMAC)
+      DA(${ZBREW_HLQ}IGY630.SIGYMAC)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(SIGYCOMP)
-      DA(${IGYHLQ}.SIGYCOMP)
+      DA(${ZBREW_HLQ}IGY630.SIGYCOMP)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(SIGYPROC)
-      DA(${IGYHLQ}.SIGYPROC)
+      DA(${ZBREW_HLQ}IGY630.SIGYPROC)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(SIGYSAMP)
-      DA(${IGYHLQ}.SIGYSAMP)
+      DA(${ZBREW_HLQ}IGY630.SIGYSAMP)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(AIGYHFS)
-      DA(${IGYHLQ}.AIGYHFS)
+      DA(${ZBREW_HLQ}IGY630.AIGYHFS)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(AIGYMOD1)
-      DA(${IGYHLQ}.AIGYMOD1)
+      DA(${ZBREW_HLQ}IGY630.AIGYMOD1)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(AIGYSRC1)
-      DA(${IGYHLQ}.AIGYSRC1)
+      DA(${ZBREW_HLQ}IGY630.AIGYSRC1)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
@@ -98,26 +98,26 @@ targetsmpcntl=\
  ENDUCL."
 
 distsmpcntl=\
-" SET   BDY(${IGYHLQ}D).
+" SET   BDY(${ZBREW_HLQ}IGY630D).
  UCLIN.
   ADD DDDEF(AIGYHFS)
-      DA(${IGYHLQ}.AIGYHFS)
+      DA(${ZBREW_HLQ}IGY630.AIGYHFS)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(AIGYMOD1)
-      DA(${IGYHLQ}.AIGYMOD1)
+      DA(${ZBREW_HLQ}IGY630.AIGYMOD1)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
   ADD DDDEF(AIGYSRC1)
-      DA(${IGYHLQ}.AIGYSRC1)
+      DA(${ZBREW_HLQ}IGY630.AIGYSRC1)
       UNIT(SYSALLDA)
       WAITFORDSN
       SHR.
  ENDUCL."
 
-	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYHLQ}G.GLOBAL.CSI --smppts=${IGYHLQ}G.SMPPTS --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*'  --smpcntl=stdin <<zzz
+	mvscmdauth --pgm=GIMSMP --smpcsi=${ZBREW_HLQ}IGY630G.GLOBAL.CSI --smppts=${ZBREW_HLQ}IGY630G.SMPPTS --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*'  --smpcntl=stdin <<zzz
 ${targetsmpcntl}
 zzz
 	rc=$?
@@ -125,21 +125,27 @@ zzz
 		exit $rc
 	fi
 
-	mvscmdauth --pgm=GIMSMP --smpcsi=${IGYHLQ}G.GLOBAL.CSI --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*' --smpcntl=stdin <<zzz
+	mvscmdauth --pgm=GIMSMP --smpcsi=${ZBREW_HLQ}IGY630G.GLOBAL.CSI --smplog='*' --smpout='*' --smprpt='*' --smplist='*' --sysprint='*' --smpcntl=stdin <<zzz
 ${distsmpcntl}
 zzz
 	rc=$?
 	exit $rc
 }
-
-props=$(callerdir "$0")"/igy630install.properties"
+mydir=$(callerdir ${0})
+props="${mydir}/../../zbrew/properties/zbrew.properties"
+. zbrewprops "${props}"
+if [ $? -gt 0 ]; then
+        echo "Internal Error. Unable to find ${props}" >&2
+        exit 4
+fi     
+props="${mydir}/igy630install.properties"
 . zbrewprops ${props}
 
 ds="
-    	${IGYHLQ}.SIGYCOMP -s150M -ru
-	${IGYHLQ}.SIGYMAC -s1M
-	${IGYHLQ}.SIGYPROC -s1M
-	${IGYHLQ}.SIGYSAMP -s1M
+    	${ZBREW_HLQ}IGY630.SIGYCOMP -s150M -ru
+	${ZBREW_HLQ}IGY630.SIGYMAC -s1M
+	${ZBREW_HLQ}IGY630.SIGYPROC -s1M
+	${ZBREW_HLQ}IGY630.SIGYSAMP -s1M
 "
 
 out=`crtds "${ds}"`
