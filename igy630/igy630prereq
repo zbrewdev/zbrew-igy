@@ -21,8 +21,8 @@ fi
 release=`echo ${zosinfo} | awk '{ print $2; }'`
 
 case ${release} in
-	'02.00' ) ptfs='PH10606 PH10740 PH15585';;
-	'03.00' ) ptfs='PH07107 PH09543 PH15589';;
+	'02.00' ) ptfs='UI62788 UI62416 UI64723 UI62788';;
+	'03.00' ) ptfs='UI61308 UI61747 UI64724 UI65062';;
 	'04.00' ) ptfs='';;
 	* ) echo "z/OS 2.${release} not supported for IGY630";;
 esac

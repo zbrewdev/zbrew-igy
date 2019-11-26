@@ -56,7 +56,7 @@ zzz
 
 crtddef() {
 targetsmpcntl=\
-" SET   BDY(${ZBREW_HLQ}IGY630T).
+" SET   BDY(IGY630T).
  UCLIN.
   ADD DDDEF(SIGYMAC)
       DA(${ZBREW_HLQ}IGY630.SIGYMAC)
@@ -98,7 +98,7 @@ targetsmpcntl=\
  ENDUCL."
 
 distsmpcntl=\
-" SET   BDY(${ZBREW_HLQ}IGY630D).
+" SET   BDY(IGY630D).
  UCLIN.
   ADD DDDEF(AIGYHFS)
       DA(${ZBREW_HLQ}IGY630.AIGYHFS)

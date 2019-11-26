@@ -40,7 +40,7 @@ runivp() {
 		fi
 	done
 	rc=`jls ${job} | awk '{ print $5; }'`
-	if [ ${rc} != '0' ]; then
+	if [ "${rc}" != '0000' ]; then
 		echo "IVP failed with RC:${rc}. Temporary JCL is in ${tempds}. Job output is in ${job}"
 		exit 16
 	fi
