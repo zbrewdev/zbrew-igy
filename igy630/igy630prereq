@@ -12,6 +12,7 @@ fi
 props=$(callerdir "$0")"/../../zbrew/global.properties"
 . zbrewprops ${props}
 
+fmid_check='n'
 zosinfo=`uname -rsvI`
 version=`echo ${zosinfo} | awk '{ print $3; }'`
 if [ "${version}" != "02" ]; then
@@ -36,7 +37,7 @@ if [ "${CEE_CSI}" = "NONE" ]; then
 	exit 0
 fi
 
-out=`smpchkptf ${CEE_CSI} ${ptfs}`
+out=`smpchkptf ${CEE_CSI} ${fmid_check} ${ptfs}`
 rc=$?
 if [ $rc -gt 0 ]; then
 	echo ${out}
