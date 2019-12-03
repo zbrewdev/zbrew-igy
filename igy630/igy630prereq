@@ -9,7 +9,7 @@ else
 	exit 4
 fi
 
-props=$(callerdir "$0")"/../../zbrew/global.properties"
+props=$(callerdir "$0")"/../../zbrew/properties/global.properties"
 . zbrewprops ${props}
 
 zosinfo=`uname -rsvI`
