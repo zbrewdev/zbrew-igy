@@ -50,16 +50,11 @@ runivp() {
 }
 
 mydir=$(callerdir ${0})
-props="${mydir}/../../zbrew/properties/zbrew.properties"
+props="${mydir}/../../zbrew/properties/zbrew.properties ${mydir}/../../zbrew/properties/global.properties ${mydir}/igy630install.properties ${mydir}/igy630config.properties"
 . zbrewprops "${props}"
 if [ $? -gt 0 ]; then
-        echo "Internal Error. Unable to find ${props}" >&2
         exit 4
 fi
-props="${mydir}/igy630install.properties"
-. zbrewprops ${props}
-props="${mydir}/igy630config.properties"
-. zbrewprops ${props}
 
 out=`runivp`
 rc=$?
