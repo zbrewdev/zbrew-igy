@@ -1,5 +1,4 @@
 #!/bin/sh
-#set -x
 
 out=$(whence zbrewfuncs >/dev/null)
 if [ $? -eq 0 ]; then
@@ -10,6 +9,7 @@ else
 fi
 
 runivp() {
+set -x
 	tempprefix="${ZBREW_HLQ}IGY630T"
 	tempds=`mvstmp ${tempprefix}`
 	dtouch -tseq $tempds
@@ -50,11 +50,14 @@ runivp() {
 }
 
 mydir=$(callerdir ${0})
-props="${mydir}/../../zbrew/properties/zbrew.properties ${mydir}/../../zbrew/properties/global.properties ${mydir}/igy630install.properties ${mydir}/igy630config.properties"
-. zbrewprops "${props}"
-if [ $? -gt 0 ]; then
-        exit 4
-fi
+props="${mydir}/../../zbrew/properties/globalprops.json"
+zbrewpropse zbrew global "${props}"
+
+props="${mydir}/../../zbrew/properties/zbrewprops.json"
+zbrewpropse zbrew config "${props}"
+
+props="${mydir}/igy630install.json"
+zbrewpropse igy630 install "${props}"
 
 out=`runivp`
 rc=$?
