@@ -1,8 +1,7 @@
 { 
 	"software": [
 	{
-		"name":"IGY",
-		"version":"630",
+		"name":"IGY630",
 		"datasets":[ 
 			{
 				"dsname":"SIGYHFS",
