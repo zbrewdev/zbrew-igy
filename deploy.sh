@@ -17,16 +17,14 @@ if [ ! -d $1 ]; then
 	exit 16
 fi
 
-rm -rf $1/zhw110
-mkdir $1/zhw110
-mkdir $1/zhw110/docs
-mkdir $1/zhw110/docs/C
-mkdir $1/zhw110/docs/C/cat1
-mkdir $1/zhw110/smphold
-mkdir $1/zhw110/smpmcs
-mkdir $1/zhw110/smprelf
+rm -rf $1/igy630
+mkdir $1/igy630
+mkdir $1/igy630/docs
+mkdir $1/igy630/docs/C
+mkdir $1/igy630/docs/C/cat1
+mkdir $1/igy630/igy630
 
-names=`cat zhw110.bom`
+names=`cat igy630.bom`
 code="${names}"
  
 for c in ${code}; do
