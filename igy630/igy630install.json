@@ -5,7 +5,7 @@
 			"zfsroot":"/zbrew/", 
 			"zfsdir":"usr/lpp/IBM/cobol/igyv6r3/", 
 			"ddefpath":"${zfsdir}bin/IBM/",
-			"leaves":"\\\"bin/.orig bin/IBM lib/nls/msg/C lib/nls/msg/Ja_JP include demo/oosample\\\"" 
+			"leaves":"\"bin/.orig bin/IBM lib/nls/msg/C lib/nls/msg/Ja_JP include demo/oosample\"" 
 		 }
 	}] 
 }
