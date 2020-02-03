@@ -21,9 +21,18 @@ fi
 release=`echo ${zosinfo} | awk '{ print $2; }'`
 
 case ${release} in
-	'02.00' ) ptfs='UI62788 UI62416 UI64723 UI62788';;
-	'03.00' ) ptfs='UI61308 UI61747 UI64724 UI65062';;
-	'04.00' ) ptfs='';;
+	'02.00' ) 
+		ptfs='UI62788 UI62416 UI64723 UI62788'
+		CHK_CSI=${CEE220_CSI}	
+		;;
+	'03.00' ) 
+		ptfs='UI61308 UI61747 UI64724 UI65062'
+		CHK_CSI=${CEE230_CSI}
+		;;
+	'04.00' ) 
+		ptfs=''
+		CHK_CSI=${CEE240_CSI}
+		;;
 	* ) echo "z/OS 2.${release} not supported for IGY630";;
 esac
 
@@ -31,12 +40,12 @@ if [ "${ptfs}" = '' ]; then
 	exit 0
 fi
 
-if [ "${CEE_CSI}" = "NONE" ]; then
+if [ "${CHK_CSI}" = "NONE" ]; then
 	echo "No LE SMP/E CSI is available. Pre-requisites are assumed ok"
 	exit 0
 fi
 
-out=`smpchkptf ${CEE_CSI} ${ptfs}`
+out=`smpchkptf ${CHK_CSI} ${ptfs}`
 rc=$?
 if [ $rc -gt 0 ]; then
 	echo ${out}
