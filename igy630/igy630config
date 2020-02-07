@@ -9,7 +9,7 @@ else
 fi
 
 runivp() {
-set -x
+#set -x
 	tempprefix="${ZBREW_HLQ}IGY630T"
 	tempds=`mvstmp ${tempprefix}`
 	dtouch -tseq $tempds
