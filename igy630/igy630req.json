@@ -1,0 +1,51 @@
+{ 
+	"software": [{ 
+		"relid":"IGY630", 
+		"description":"COBOL 6.3.0 compiler",
+		"prereq":
+		[
+			{  
+			"prodid":"CEE",
+			"description":"Language Environment",
+			"release":
+			[
+				{
+				"relid":"CEE220",
+				"fmids": [
+					{
+					"fmid":"HLE77A0",
+					"description":"Language environment for z/OS 2.2",
+					"ptfs": [ 
+						"UI62788","UI62416","UI64723","UI62788"
+					]
+					}
+				]
+				},
+				{  
+				"relid":"CEE230",
+				"fmids": [
+					{
+					"fmid":"HLE77B0",
+					"description":"Language environment for z/OS 2.3",
+					"ptfs":	[ 
+						"UI61308","UI61747","UI64724","UI65062"
+					]
+					}
+				]
+				},
+				{  
+				"relid":"CEE240",
+				"fmids": [
+					{
+					"fmid":"HLE77C0",
+					"description":"Language environment for z/OS 2.4",
+					"ptfs":	[ ]
+					}
+				]
+				}
+			]
+			}
+		],
+		"coreq": []
+	}] 
+}
