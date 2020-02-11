@@ -15,9 +15,18 @@ unmount "${MOUNT}" 2>/dev/null
 
 drm -f "${ZBREW_HLQ}igy*.*"
 
-export CEE_CSI="MVS.GLOBAL.CSI"
+zosinfo=`uname -rsvI`
+version=`echo ${zosinfo} | awk '{ print $3; }'`
+release=`echo ${zosinfo} | awk '{ print $2; }'`
 
-exit 0
+case ${release} in
+	'03.00' )
+                export CEE230_CSI='MVS.GLOBAL.CSI'
+		;;
+	'04.00' )
+                export CEE240_CSI='MVS.GLOBAL.CSI'
+		;;
+esac
 
 #
 # Add in the following once we get a base system with z/OS 2.4 

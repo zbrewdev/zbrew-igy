@@ -11,7 +11,6 @@
 # Run through each of the tests in the test bucket that aren't 
 # explicitly excluded, and return the highest error code
 #
-
 . zbrewfuncs
 mydir=$(callerdir ${0})
 
@@ -21,7 +20,7 @@ rm -f *.actual
 #set -x
 
 #
-# Override the ZBREW_HLQ to ensure test datasets go to ZHWT instead of ZBREW
+# Override the ZBREW_HLQ to ensure test files go to a separate place
 #
 export ZBREW_HLQ=IGYT.
 export ZFSROOT=/igyt/
