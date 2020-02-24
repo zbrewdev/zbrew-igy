@@ -6,12 +6,14 @@
 mydir=$(callerdir ${0})
 #set -x
 
+
+props=$(callerdir "$0")"/../../zbrew/properties/globalprops.json"
+zbrewpropse zbrew global ${props}
+
 zbrewpropse zbrew config ${mydir}/../../zbrew/properties/zbrewprops.json
-zbrewpropse igy630 install ${mydir}/../igy630/igy630install.json
 
 # Clear up any jetsam from a previous run
-MOUNT="${ZFSROOT}${ZFSDIR}"
-unmount "${MOUNT}" 2>/dev/null 
+zbrew uninstall igy630
 
 drm -f "${ZBREW_HLQ}igy*.*"
 
@@ -21,10 +23,10 @@ release=`echo ${zosinfo} | awk '{ print $2; }'`
 
 case ${release} in
 	'03.00' )
-                export CEE230_CSI='MVS.GLOBAL.CSI'
+                export ZBREW_CEE230_CSI='MVS.GLOBAL.CSI'
 		;;
 	'04.00' )
-                export CEE240_CSI='MVS.GLOBAL.CSI'
+                export ZBREW_CEE240_CSI='MVS.GLOBAL.CSI'
 		;;
 esac
 

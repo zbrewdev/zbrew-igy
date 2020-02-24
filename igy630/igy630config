@@ -56,9 +56,6 @@ zbrewpropse zbrew global "${props}"
 props="${mydir}/../../zbrew/properties/zbrewprops.json"
 zbrewpropse zbrew config "${props}"
 
-props="${mydir}/igy630install.json"
-zbrewpropse igy630 install "${props}"
-
 out=`runivp`
 rc=$?
 if [ $rc -gt 0 ]; then

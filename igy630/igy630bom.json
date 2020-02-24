@@ -9,8 +9,9 @@
 				"primary":30, 
 				"secondary":15, 
 				"zones":["T"],
-				"dddefpath":"bin/IBM/",
-				"mountpnt":""
+				"dddefpath":"usr/lpp/IBM/cobol/igyv6r3/bin/IBM/",
+				"mountpnt":"usr/lpp/IBM/cobol/igyv6r3/",
+				"leaves":"bin/.orig,bin/IBM,lib/nls/msg/C,lib/nls/msg/Ja_JP,include,demo/oosample"
 			},
 			{
 				"dsname":"SIGYCOMP",
