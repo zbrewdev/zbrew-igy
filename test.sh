@@ -23,7 +23,7 @@ rm -f *.actual
 # Override the ZBREW_HLQ to ensure test files go to a separate place
 #
 export ZBREW_HLQ=IGYT.
-export ZFSROOT=/igyt/
+export ZBREW_ZFSROOT=/igyt/
 
 if [ -z $1 ] ; then
 	tests=*.sh
