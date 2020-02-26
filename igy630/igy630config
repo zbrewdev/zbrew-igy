@@ -14,7 +14,7 @@ runivp() {
 	tempds=`mvstmp ${tempprefix}`
 	dtouch -tseq $tempds
 
-	jobcard="//IGYWIVP1   JOB ${JOBOPTS},${JOBPARMS}"
+	jobcard="//IGYWIVP1   JOB ${ZBREW_JOBOPTS},${ZBREW_JOBPARMS}"
 	decho "$jobcard" ${tempds}
 	decho -a "//*
 //PROCLIB JCLLIB ORDER=${ZBREW_HLQ}IGY630.SIGYPROC
