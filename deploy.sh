@@ -22,7 +22,6 @@ mkdir $1/igy630
 mkdir $1/igy630/docs
 mkdir $1/igy630/docs/C
 mkdir $1/igy630/docs/C/cat1
-mkdir $1/igy630/igy630
 
 names=`cat igy630.bom`
 code="${names}"
