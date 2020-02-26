@@ -30,16 +30,19 @@ runivp() {
 " ${tempds}
 
 	job=`jsub $tempds`
-	running=1
-	while [ ${running} -gt 0 ]; do
-		status=`jls ${job} | awk '{ print $4; }'`
-		if [ "${status}" != 'AC' ]; then
-			running=0
-		else 
-			sleep 1
+	while true ; do
+		output=`jls ${job}`
+		if [ $? -eq 0 ]; then
+			if [ "${output}" != '' ]; then 
+				status=`echo ${output} | awk '{ print $4; }'`
+				if [ "${status}" != 'AC' ]; then
+					break
+				fi
+			fi
 		fi
+		sleep 1
 	done
-	rc=`jls ${job} | awk '{ print $5; }'`
+	rc=`echo ${output} | awk '{ print $5; }'`
 	if [ "${rc}" != '0000' ]; then
 		echo "IVP failed with RC:${rc}. Temporary JCL is in ${tempds}. Job output is in ${job}"
 		exit 16
