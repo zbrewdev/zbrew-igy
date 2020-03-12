@@ -13,6 +13,8 @@
 #
 . zbrewfuncs
 mydir=$(callerdir ${0})
+props="${mydir}/../zbrew/zbrewglobalprops.json"
+zbrewpropse zbrew config "${props}"
 
 cd ${mydir}/tests
 
@@ -20,10 +22,11 @@ rm -f *.actual
 #set -x
 
 #
-# Override the ZBREW_HLQ to ensure test files go to a separate place
+# Override the ZBREW_SRC_HLQ to ensure test files go to a separate place
 #
-export ZBREW_HLQ=IGYT.
-export ZBREW_ZFSROOT=/igyt/
+export ZBREW_SRC_HLQ=IGYV.
+export ZBREW_SRC_ZFSROOT=${ZBREW_TMP}/igyv/
+export ZBREW_ZOS240_CSI=MVS.GLOBAL.CSI
 
 if [ -z $1 ] ; then
 	tests=*.sh

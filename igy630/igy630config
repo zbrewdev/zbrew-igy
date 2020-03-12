@@ -8,24 +8,29 @@ else
 	exit 4
 fi
 
+#
+# msf - for now - make this ZBREW_TGT_HLQ equal to ZBREW_SRC_HLQ
+# and fix this when 'dzip' is added
+#
+export ZBREW_TGT_HLQ=${ZBREW_SRC_HLQ}
 runivp() {
 #set -x
-	tempprefix="${ZBREW_HLQ}IGY630T"
+	tempprefix="${ZBREW_TGT_HLQ}IGY630T"
 	tempds=`mvstmp ${tempprefix}`
 	dtouch -tseq $tempds
 
 	jobcard="//IGYWIVP1   JOB ${ZBREW_JOBOPTS},${ZBREW_JOBPARMS}"
 	decho "$jobcard" ${tempds}
 	decho -a "//*
-//PROCLIB JCLLIB ORDER=${ZBREW_HLQ}IGY630.SIGYPROC
+//PROCLIB JCLLIB ORDER=${ZBREW_TGT_HLQ}IGY630.SIGYPROC
 //RUNIVP EXEC IGYWCLG,REGION=0M,
-//  LNGPRFX=${ZBREW_HLQ}IGY630,
+//  LNGPRFX=${ZBREW_TGT_HLQ}IGY630,
 //  LIBPRFX=${ZBREW_CEEHLQ},
 //  PARM.LKED='LIST,XREF,LET,MAP',
 //  PARM.COBOL='RENT',
 //  PARM.GO=''
 //COBOL.SYSIN DD DISP=SHR,
-//  DSN=${ZBREW_HLQ}IGY630.SIGYSAMP(IGYIVP)
+//  DSN=${ZBREW_TGT_HLQ}IGY630.SIGYSAMP(IGYIVP)
 //GO.SYSOUT DD SYSOUT=*
 " ${tempds}
 
@@ -53,10 +58,7 @@ runivp() {
 }
 
 mydir=$(callerdir ${0})
-props="${mydir}/../../zbrew/properties/globalprops.json"
-zbrewpropse zbrew global "${props}"
-
-props="${mydir}/../../zbrew/properties/zbrewprops.json"
+props="${mydir}/../../zbrew/zbrewglobalprops.json"
 zbrewpropse zbrew config "${props}"
 
 out=`runivp`
