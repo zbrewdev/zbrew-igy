@@ -6,16 +6,12 @@
 mydir=$(callerdir ${0})
 #set -x
 
-
-props=$(callerdir "$0")"/../../zbrew/properties/globalprops.json"
-zbrewpropse zbrew global ${props}
-
-zbrewpropse zbrew config ${mydir}/../../zbrew/properties/zbrewprops.json
+zbrewpropse zbrew config ${mydir}/../../zbrew/zbrewglobalprops.json
 
 # Clear up any jetsam from a previous run
 zbrew uninstall igy630
 
-drm -f "${ZBREW_HLQ}igy*.*"
+drm -f "${ZBREW_SRC_HLQ}igy*.*"
 
 zosinfo=`uname -rsvI`
 version=`echo ${zosinfo} | awk '{ print $3; }'`
@@ -49,7 +45,7 @@ if [ $rc != 0 ]; then
 fi
 
 # disabled this test for now ... have to update tests to read BOM to find mountpoints and verify
-#bindir="${ZBREW_ZFSROOT}bin"
+#bindir="${ZBREW_SRC_ZFSROOT}bin"
 #if ! [ -d "${bindir}" ]; then
 #	zbrewtest "leaf directory not created" "${bindir}" "${bindir}"
 #	exit 6
