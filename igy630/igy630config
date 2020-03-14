@@ -8,11 +8,6 @@ else
 	exit 4
 fi
 
-#
-# msf - for now - make this ZBREW_TGT_HLQ equal to ZBREW_SRC_HLQ
-# and fix this when 'dzip' is added
-#
-export ZBREW_TGT_HLQ=${ZBREW_SRC_HLQ}
 runivp() {
 #set -x
 	tempprefix="${ZBREW_TGT_HLQ}IGY630T"
