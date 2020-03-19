@@ -9,9 +9,8 @@ mydir=$(callerdir ${0})
 zbrewpropse zbrew config ${mydir}/../../zbrew/zbrewglobalprops.json
 
 # Clear up any jetsam from a previous run
+zbrew deconfigure igy630
 zbrew uninstall igy630
-
-drm -f "${ZBREW_SRC_HLQ}igy*.*"
 
 zosinfo=`uname -rsvI`
 version=`echo ${zosinfo} | awk '{ print $3; }'`
