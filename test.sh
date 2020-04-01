@@ -12,63 +12,18 @@
 # explicitly excluded, and return the highest error code
 #
 . zbrewfuncs
+. zbrewtestfuncs   
 mydir=$(callerdir ${0})
 props="${mydir}/../zbrew/zbrewglobalprops.json"
 zbrewpropse zbrew config "${props}"
 
-cd ${mydir}/tests
-
-rm -f *.actual
-#set -x
-
 #
-# Override the ZBREW_SRC_HLQ to ensure test files go to a separate place
+# Override the ZBREW_SRC_HLQ to ensure test datasets go to separate location from standard work
 #
-export ZBREW_SRC_HLQ=IGYV.
-export ZBREW_SRC_ZFSROOT=${ZBREW_TMP}/igyv/
-export ZBREW_ZOS240_CSI=MVS.GLOBAL.CSI
+export ZBREW_SRC_HLQ=ZBREWVS.
+export ZBREW_SRC_ZFSROOT=/zbrew/igyvs/
+export ZBREW_TGT_HLQ=ZBREWVT.
+export ZBREW_TGT_ZFSROOT=/zbrew/igyvt/
 
-if [ -z $1 ] ; then
-	tests=*.sh
-else
-	tests=${1}.sh
-fi
-
-if [ -z "${TEST_SKIP_LIST}" ]; then
-	export TEST_SKIP_LIST=""
-fi
-
-maxrc=0
-for test in ${tests}; do
-	name="${test%.*}"
-	if [ "${name}" = "test" ]; then
-		continue;
-	fi
-	if test "${TEST_SKIP_LIST#*$name}" != "$TEST_SKIP_LIST"; then
-		echo "Skip test ${name}"
-	else
-		echo "Run test ${name}"
-		if [ -e ${name}.parm ]; then
-			parms=`cat ${name}.parm`
-		else
-			parms=''
-		fi
-		if [ -e ${name}.expected ]; then 
-			${test} ${parms} >${name}.actual 2>&1
-			mdiff -Z ${name}.expected ${name}.actual
-			rc=$?
-		else 
-
-			${test} ${parms} > /dev/null 2>/dev/null
-			rc=$?
-		fi 
-		if [ ${rc} -gt ${maxrc} ]; then
-			${test} -dv ${parms}
-			echo "Failed test ${name}"
-			exit $rc
-            maxrc=${rc}
-		fi
-	fi
-done
-exit ${maxrc} 
-
+runtests "${mydir}/tests" "$1"
+exit $?
