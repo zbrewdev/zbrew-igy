@@ -11,11 +11,10 @@
 # Run through each of the tests in the test bucket that aren't 
 # explicitly excluded, and return the highest error code
 #
-. zbrewfuncs
+. zbrewsetenv
+export PATH=$ZBREW_ROOT/testtools:$PATH
+
 . zbrewtestfuncs   
-mydir=$(callerdir ${0})
-props="${mydir}/../zbrew/zbrewglobalprops.json"
-zbrewpropse zbrew config "${props}"
 
 #
 # Override the ZBREW_SRC_HLQ to ensure test datasets go to separate location from standard work
