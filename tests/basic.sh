@@ -2,11 +2,8 @@
 #
 # Run a basic COBOL install/configure
 #
-. zbrewfuncs
-mydir=$(callerdir ${0})
+. zbrewsetenv
 #set -x
-
-zbrewpropse zbrew config ${mydir}/../../zbrew/zbrewglobalprops.json
 
 # Clear up any jetsam from a previous run
 zbrew deconfigure igy630
