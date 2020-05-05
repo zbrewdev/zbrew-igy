@@ -1,5 +1,5 @@
 #!/bin/sh
 . zbrewsetenv 
 
-zbrewdeploy $1 igy630.bom
+zbrewdeploy "$1" zbrew-igybin.bom
 exit $? 
